@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Android Assignment</string>
+    <string name="warped">It\'s warped.</string>
+    <string name="stars">Over 200 billion stars.</string>
+    <string name="gassy">It\'s really dusty and gassy.</string>
+    <string name="black_hole">Black hole at the centre.</string>
+</resources>
