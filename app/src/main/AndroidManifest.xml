@@ -12,16 +12,21 @@
         android:theme="@style/Theme.AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".ui.DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ErrorActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
