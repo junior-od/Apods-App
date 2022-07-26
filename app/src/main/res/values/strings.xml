@@ -18,4 +18,8 @@
     <string name="reorder_list">Reorder list</string>
     <string name="shooting_stars">Shooting Stars</string>
     <string name="sample_date">03/01/2021</string>
+    <string name="reorder_by_title">Reorder by title</string>
+    <string name="reorder_by_date">Reorder by date</string>
+    <string name="apply">Apply</string>
+    <string name="reset">Reset</string>
 </resources>
