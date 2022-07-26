@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.PodsActivity">
+
+    <TextView
+        android:id="@+id/headerText"
+        android:textColor="@color/textColor"
+        android:text="@string/our_universe"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/roboto_regular"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+
+
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/headerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/favoritesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/myFavouritesText"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/my_favourites"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="14sp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/favouriteRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/myFavouritesText"
+                android:layout_marginTop="10dp"
+                android:overScrollMode="never"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:listitem="@layout/single_pod_layout" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/latestText"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/latest"
+            android:textColor="@color/textColor"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="14sp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/latestRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:background="@drawable/ic_bottom_gradient_bg"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/single_pod_layout"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/gradientBg"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/ic_bottom_gradient_bg"
+        />
+
+
+    <Button
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="20dp"
+        android:id="@+id/reorderList"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textColor="@color/textColor"
+        android:textStyle="bold"
+        android:drawableLeft="@drawable/ic_reorder"
+        android:background="@drawable/ic_dark_blue_rc_15_bg"
+        android:text="@string/reorder_list"
+        tools:ignore="RtlHardcoded" />
+
+
+</RelativeLayout>

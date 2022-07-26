@@ -1,7 +1,25 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Android Assignment</string>
     <string name="warped">It\'s warped.</string>
     <string name="stars">Over 200 billion stars.</string>
     <string name="gassy">It\'s really dusty and gassy.</string>
     <string name="black_hole">Black hole at the centre.</string>
+    <string name="error_icon">error icon</string>
+    <string name="oops_something_went_wrong">Oops! Something went wrong.</string>
+    <string name="please_refresh_the_page_and_try_again">Please refresh the page and try again.</string>
+    <string name="refresh">Refresh</string>
+    <string name="pod_image">pod image</string>
+    <string name="back_arrow">back arrow</string>
+    <string name="our_universe">Our Universe</string>
+    <string name="favourite_icon">favourite icon</string>
+    <string name="explanation_sample" tools:ignore="TypographyDashes">Can you find the Moon? This usually simple task can be quite difficult. Even though the Moon is above your horizon half of the time, its phase can be anything from crescent to full. The featured image was taken in late May from Sant Martí d\'Empúries, Spain, over the Mediterranean Sea in the early morning. One reason you can\'t find this moon is because it is very near to its new phase, when very little of the half illuminated by the Sun is visible to the Earth. Another reason is because this moon is near the horizon and so seen through a long path of Earth\'s atmosphere — a path which dims the already faint crescent. Any crescent moon is only visible near the direction the Sun, and so only locatable near sunrise of sunset. The Moon runs through all of its phases in a month (moon-th), and this month the thinnest sliver of a crescent — a new moon -- will occur in three days.</string>
+    <string name="my_favourites">My favourites</string>
+    <string name="latest">Latest</string>
+    <string name="reorder_list">Reorder list</string>
+    <string name="shooting_stars">Shooting Stars</string>
+    <string name="sample_date">03/01/2021</string>
+    <string name="reorder_by_title">Reorder by title</string>
+    <string name="reorder_by_date">Reorder by date</string>
+    <string name="apply">Apply</string>
+    <string name="reset">Reset</string>
 </resources>

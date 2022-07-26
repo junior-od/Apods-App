@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/headerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="@string/reorder_list"
+        android:textSize="25sp"
+        android:textColor="@color/textColor"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:layout_marginTop="50dp"
+        android:id="@+id/optionGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:weightSum="1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:text="@string/reorder_by_title"
+                android:textSize="20sp"
+                android:textColor="@color/textColor"
+                />
+
+            <RadioButton
+                android:layout_weight="0.1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/title" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:weightSum="1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:text="@string/reorder_by_date"
+                android:textSize="20sp"
+                android:textColor="@color/textColor"
+                />
+
+            <RadioButton
+                android:layout_weight="0.1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/date" />
+        </LinearLayout>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/applyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/optionGroup"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ic_dark_blue_rc_bg"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/apply"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/reset"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/applyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/reset"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        />
+
+</RelativeLayout>
