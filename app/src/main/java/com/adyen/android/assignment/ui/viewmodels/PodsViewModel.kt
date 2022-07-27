@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.android.assignment.api.model.AstronomyPicture
 import com.adyen.android.assignment.data.repository.PlanetaryRepositoryImpl
+import com.adyen.android.assignment.utils.Constants
 import com.adyen.android.assignment.utils.DispatcherProviders
 import com.adyen.android.assignment.utils.NetworkResource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,10 +26,15 @@ class PodsViewModel @Inject constructor(
         object Empty: PodsEvent()
     }
 
+    private var filterBy: Constants.PodsFilter = Constants.PodsFilter.TITLE
+
     private var tempLatestPods: MutableList<AstronomyPicture> = ArrayList()
 
     private val _fetchLatestAndFavourites = MutableStateFlow<PodsEvent>(PodsEvent.Empty)
     val fetchLatestAndFavourites: StateFlow<PodsEvent> = _fetchLatestAndFavourites
+
+    private val _filterLatestAndFavourites = MutableStateFlow<PodsEvent>(PodsEvent.Empty)
+    val filterLatestAndFavourites: StateFlow<PodsEvent> = _filterLatestAndFavourites
 
     fun fetchLatest() {
         viewModelScope.launch(dispatchers.io) {
@@ -45,11 +51,44 @@ class PodsViewModel @Inject constructor(
 
                         tempLatestPods = it.filter {pod -> pod.mediaType == "image" }.toMutableList() //sanitize list for images only
 
-                        _fetchLatestAndFavourites.value = PodsEvent.Success(tempLatestPods, ArrayList())
+                        tempLatestPods.let { list ->
+                            val tempLatestPodsByDefaultFilterValue = addFilter(list, filterBy)
+
+                            tempLatestPodsByDefaultFilterValue.let { filteredLatestData ->
+
+
+                                _fetchLatestAndFavourites.value = PodsEvent.Success(filteredLatestData, ArrayList())
+                            }
+                        }
+
                     }
                 }
             }
 
+        }
+    }
+
+    fun applyFilter(filterSet: Constants.PodsFilter) {
+        viewModelScope.launch(dispatchers.io) {
+            filterBy = filterSet
+            tempLatestPods.let {
+                list -> val tempLatestPodsByFilterValue = addFilter(list, filterSet)
+                tempLatestPodsByFilterValue.let { filteredLatestData ->
+                    _filterLatestAndFavourites.value =  PodsEvent.Success(filteredLatestData, ArrayList())
+                }
+            }
+        }
+    }
+
+    private fun addFilter(list: List<AstronomyPicture>, filterSet: Constants.PodsFilter): List<AstronomyPicture>{
+        return when (filterSet) {
+            Constants.PodsFilter.TITLE -> {
+                list.sortedBy { it.title }
+            }
+
+            Constants.PodsFilter.DATE -> {
+                list.sortedByDescending { it.date }
+            }
         }
     }
 }

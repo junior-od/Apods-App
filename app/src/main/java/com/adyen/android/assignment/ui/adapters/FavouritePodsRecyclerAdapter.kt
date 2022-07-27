@@ -1,5 +1,6 @@
 package com.adyen.android.assignment.ui.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,18 +12,26 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class FavouritePodsRecyclerAdapter (
     private val context: Context,
-    private val podsList: List<AstronomyPicture>,
+    pods: List<AstronomyPicture>,
     listener : PodsListener,
 ):  RecyclerView.Adapter<FavouritePodsRecyclerAdapter.FavouritePodsViewHolder>() {
 
     private val listener: PodsListener?
+    private var podsList: List<AstronomyPicture>
 
     init {
         this.listener = listener
+        this.podsList = pods
     }
 
     interface PodsListener {
         fun onFavoritePodClicked(pod: AstronomyPicture)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateItems(podsList: List<AstronomyPicture>) {
+        this.podsList = podsList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(
