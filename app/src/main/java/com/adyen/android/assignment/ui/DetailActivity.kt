@@ -11,7 +11,6 @@ import com.adyen.android.assignment.utils.Constants.IS_FAVOURITE
 import com.adyen.android.assignment.utils.Constants.POD
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,12 +30,11 @@ class DetailActivity : BaseActivity() {
             onBackPressed()
         }
 
-        intent.getStringExtra(POD).let {
-            pod = Gson().fromJson(it, AstronomyPicture::class.java)
-            pod.run {
+        intent.getParcelableExtra<AstronomyPicture>(POD).let {
+            it?.let {
+                pod = it
                 bindDataToView()
             }
-
         }
 
         intent.getBooleanExtra(IS_FAVOURITE, false).let {
