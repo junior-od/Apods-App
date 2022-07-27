@@ -1,14 +1,13 @@
 package com.adyen.android.assignment.api.model
 
-import com.squareup.moshi.Json
-import java.time.LocalDate
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-data class AstronomyPicture(
-    @Json(name = "service_version") val serviceVersion: String,
+@Parcelize
+data class AstronomyPicture (
     val title: String,
     val explanation: String,
     val date: String,
-    @Json(name = "media_type") val mediaType: String,
-    @Json(name = "hdurl") val hdUrl: String?,
     val url: String,
-)
+    val mediaType: String,
+): Parcelable

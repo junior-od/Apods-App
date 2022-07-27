@@ -11,9 +11,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class PodsRecyclerAdapter (
-        private val context: Context,
-        pods: List<AstronomyPicture>,
-        listener : PodsListener,
+    private val context: Context,
+    pods: List<AstronomyPicture>,
+    listener : PodsListener,
         ):  RecyclerView.Adapter<PodsRecyclerAdapter.PodsViewHolder>() {
 
     private val listener: PodsListener?

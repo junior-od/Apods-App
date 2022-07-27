@@ -10,7 +10,7 @@ class DayAdapter {
     fun toJson(date: LocalDate): String = date.toString()
 
     /**
-     * Maps the [AstronomyPicture.date] json string to a [LocalDate]
+     * Maps the [AstronomyPictureResponse.date] json string to a [LocalDate]
      */
     @FromJson
     fun fromJson(date: String): LocalDate = LocalDate.parse(date)

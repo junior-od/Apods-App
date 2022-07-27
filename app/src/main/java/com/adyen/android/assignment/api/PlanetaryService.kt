@@ -1,7 +1,7 @@
 package com.adyen.android.assignment.api
 
 import com.adyen.android.assignment.BuildConfig
-import com.adyen.android.assignment.api.model.AstronomyPicture
+import com.adyen.android.assignment.api.model.AstronomyPictureResponse
 import com.adyen.android.assignment.api.model.DayAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -17,7 +17,7 @@ interface PlanetaryService {
      * See [the docs](https://api.nasa.gov/) and [github micro service](https://github.com/nasa/apod-api#docs-)
      */
     @GET("planetary/apod?count=20&api_key=${BuildConfig.API_KEY}")
-    suspend fun getPictures(): Response<List<AstronomyPicture>>
+    suspend fun getPictures(): Response<List<AstronomyPictureResponse>>
 
     companion object {
 

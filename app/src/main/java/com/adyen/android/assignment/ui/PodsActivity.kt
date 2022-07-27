@@ -19,7 +19,6 @@ import com.adyen.android.assignment.ui.viewmodels.PodsViewModel
 import com.adyen.android.assignment.utils.Constants
 import com.adyen.android.assignment.utils.Constants.IS_FAVOURITE
 import com.adyen.android.assignment.utils.Constants.POD
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -228,7 +227,7 @@ class PodsActivity : BaseActivity(), PodsRecyclerAdapter.PodsListener,
 
     private fun viewPodDetails(pod: AstronomyPicture, isFavourite: Boolean) {
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(POD, Gson().toJson(pod))
+        intent.putExtra(POD, pod)
         intent.putExtra(IS_FAVOURITE, isFavourite)
         detailBackResult.launch(intent)
     }
