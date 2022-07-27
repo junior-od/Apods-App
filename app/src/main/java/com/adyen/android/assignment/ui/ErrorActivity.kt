@@ -1,12 +1,29 @@
 package com.adyen.android.assignment.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import com.adyen.android.assignment.R
+import com.adyen.android.assignment.databinding.ActivityErrorBinding
+import com.adyen.android.assignment.ui.commons.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-class ErrorActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class ErrorActivity : BaseActivity() {
+    private lateinit var binding: ActivityErrorBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_error)
+        binding = ActivityErrorBinding.inflate(layoutInflater)
+
+        enterFullScreen()
+        setContentView(binding.root)
+
+        binding.refreshBtn.setOnClickListener {
+            onBackPressed()
+        }
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent()
+        setResult(RESULT_OK, intent)
+        finish()
     }
 }

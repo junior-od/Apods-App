@@ -44,14 +44,15 @@
         </RelativeLayout>
 
         <TextView
-            android:layout_toEndOf="@+id/backViewLayout"
-            android:layout_centerVertical="true"
-            android:textColor="@color/textColor"
-            android:text="@string/our_universe"
-            android:textSize="18sp"
-            android:fontFamily="@font/roboto_regular"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/backViewLayout"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/our_universe"
+            android:textStyle="bold"
+            android:textColor="@color/textColor"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <ScrollView
@@ -92,6 +93,7 @@
 
             <ImageView
                 android:id="@+id/favourite"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:src="@drawable/ic_favorite_border"
