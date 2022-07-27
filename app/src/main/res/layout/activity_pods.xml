@@ -20,6 +20,7 @@
 
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/content"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="40dp"
@@ -93,6 +94,7 @@
 
 
     <Button
+        android:visibility="gone"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="15dp"
@@ -106,6 +108,14 @@
         android:background="@drawable/ic_dark_blue_rc_15_bg"
         android:text="@string/reorder_list"
         tools:ignore="RtlHardcoded" />
+
+    <ProgressBar
+        android:id="@+id/loadingBar"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:progressTint="@color/primary"
+        android:layout_centerInParent="true"
+        />
 
 
 </RelativeLayout>
