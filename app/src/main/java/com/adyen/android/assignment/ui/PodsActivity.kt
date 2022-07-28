@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adyen.android.assignment.api.model.AstronomyPicture
@@ -14,7 +15,8 @@ import com.adyen.android.assignment.databinding.ActivityPodsBinding
 import com.adyen.android.assignment.databinding.ReorderlistDialogBinding
 import com.adyen.android.assignment.ui.adapters.FavouritePodsRecyclerAdapter
 import com.adyen.android.assignment.ui.adapters.PodsRecyclerAdapter
-import com.adyen.android.assignment.ui.commons.BaseActivity
+import com.adyen.android.assignment.ui.dialogs.ErrorDialog
+import com.adyen.android.assignment.ui.interfaces.RefreshCallbackListener
 import com.adyen.android.assignment.ui.viewmodels.PodsViewModel
 import com.adyen.android.assignment.utils.Constants
 import com.adyen.android.assignment.utils.Constants.IS_FAVOURITE
@@ -22,8 +24,8 @@ import com.adyen.android.assignment.utils.Constants.POD
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PodsActivity : BaseActivity(), PodsRecyclerAdapter.PodsListener,
-    FavouritePodsRecyclerAdapter.PodsListener {
+class PodsActivity : AppCompatActivity(), PodsRecyclerAdapter.PodsListener,
+    FavouritePodsRecyclerAdapter.PodsListener, RefreshCallbackListener {
     private lateinit var binding: ActivityPodsBinding
     private val podsViewModel: PodsViewModel by viewModels()
 
@@ -40,7 +42,7 @@ class PodsActivity : BaseActivity(), PodsRecyclerAdapter.PodsListener,
         super.onCreate(savedInstanceState)
         binding = ActivityPodsBinding.inflate(layoutInflater)
 
-        enterFullScreen()
+
         setContentView(binding.root)
 
         setupReorderListModal()
@@ -187,8 +189,10 @@ class PodsActivity : BaseActivity(), PodsRecyclerAdapter.PodsListener,
     }
 
     private fun showRefreshView() {
-        val intent = Intent(this, ErrorActivity::class.java)
-        refreshResult.launch(intent)
+//        val intent = Intent(this, ErrorActivity::class.java)
+//        refreshResult.launch(intent)
+        val dialogFragment = ErrorDialog(this)
+        dialogFragment.show(supportFragmentManager, "signature")
 
     }
 
@@ -239,4 +243,9 @@ class PodsActivity : BaseActivity(), PodsRecyclerAdapter.PodsListener,
     override fun onFavoritePodClicked(pod: AstronomyPicture) {
         viewPodDetails(pod, true)
     }
+
+    override fun onRefresh() {
+        podsViewModel.fetchLatest()
+    }
+
 }

@@ -3,10 +3,10 @@ package com.adyen.android.assignment.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.api.model.AstronomyPicture
 import com.adyen.android.assignment.databinding.ActivityDetailBinding
-import com.adyen.android.assignment.ui.commons.BaseActivity
 import com.adyen.android.assignment.utils.Constants.IS_FAVOURITE
 import com.adyen.android.assignment.utils.Constants.POD
 import com.bumptech.glide.Glide
@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailActivity : BaseActivity() {
+class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var pod: AstronomyPicture
     private var isPodFavourite: Boolean = false
@@ -22,8 +22,6 @@ class DetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
-
-        enterFullScreen()
         setContentView(binding.root)
 
         binding.backViewLayout.setOnClickListener {
