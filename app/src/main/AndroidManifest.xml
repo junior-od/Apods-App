@@ -29,10 +29,6 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false" />
         <activity
-            android:name=".ui.ErrorActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false" />
-        <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true">
