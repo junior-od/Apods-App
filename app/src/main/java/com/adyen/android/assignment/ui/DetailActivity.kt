@@ -9,6 +9,7 @@ import com.adyen.android.assignment.api.model.AstronomyPicture
 import com.adyen.android.assignment.databinding.ActivityDetailBinding
 import com.adyen.android.assignment.utils.Constants.IS_FAVOURITE
 import com.adyen.android.assignment.utils.Constants.POD
+import com.adyen.android.assignment.utils.DateConverter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,7 +63,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun bindDataToView() {
         binding.podTitle.text = pod.title
-        binding.podDate.text = pod.date //todo add formatter for time here
+        binding.podDate.text = DateConverter.formatDateToDdMmYyyy(pod.date)
         binding.podExplanation.text = pod.explanation
         pod.url.let { url ->
             Glide.with(this@DetailActivity)

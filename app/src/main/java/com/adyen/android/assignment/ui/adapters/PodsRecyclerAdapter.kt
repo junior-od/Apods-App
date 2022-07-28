@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.adyen.android.assignment.api.model.AstronomyPicture
 import com.adyen.android.assignment.databinding.SinglePodLayoutBinding
+import com.adyen.android.assignment.utils.DateConverter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
@@ -86,7 +87,7 @@ class PodsRecyclerAdapter (
                     }
 
                     podModel.date.let {
-                        binding.podDate.text = it //todo add formatter for time here
+                        binding.podDate.text = DateConverter.formatDateToDdMmYyyy(it)
                     }
 
                 }
