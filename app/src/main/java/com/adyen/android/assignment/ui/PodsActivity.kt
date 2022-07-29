@@ -50,8 +50,6 @@ class PodsActivity : AppCompatActivity(), PodsRecyclerAdapter.PodsListener,
 
         getLatestPods()
 
-        observeFilteredData()
-
         contractCallbackForDetailBackClicked()
 
         bindingReorderDialog.reset.setOnClickListener {
@@ -93,20 +91,6 @@ class PodsActivity : AppCompatActivity(), PodsRecyclerAdapter.PodsListener,
         podsViewModel.applyFilter(filterBy)
     }
 
-    private fun observeFilteredData() {
-        lifecycleScope.launchWhenStarted {
-            podsViewModel.filterLatestAndFavourites.collect{
-                event -> when (event) {
-                    is  PodsViewModel.PodsEvent.Success -> {
-                        podsRecycleAdapter?.updateItems(event.latestPods)
-                    }
-
-                    else -> Unit
-                }
-            }
-        }
-    }
-
     private fun resetFilterValues() {
         bindingReorderDialog.title.isChecked = true
         bindingReorderDialog.date.isChecked = false
@@ -145,6 +129,12 @@ class PodsActivity : AppCompatActivity(), PodsRecyclerAdapter.PodsListener,
                         showRefreshView()
                     }
 
+                    is PodsViewModel.PodsEvent.FavoriteChange -> {
+                        binding.favoritesLayout.visibility = if (event.favouritePods.isNotEmpty()) View.VISIBLE else View.GONE
+                        podsRecycleAdapter?.updateItems(event.latestPods)
+                        favouritePodsRecyclerAdapter?.updateItems(event.favouritePods)
+                    }
+
                     else -> Unit
                 }
             }
@@ -158,9 +148,9 @@ class PodsActivity : AppCompatActivity(), PodsRecyclerAdapter.PodsListener,
         detailBackResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
         ) {
             it?.let {
-                if (it.resultCode == RESULT_OK) {
-                    it.data?.let { _ ->
-                        //todo function to update list and display latest and favourites if any
+                when (it.resultCode) {
+                    RESULT_OK -> {
+                        podsViewModel.pinFavourite()
                     }
                 }
             }

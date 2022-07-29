@@ -13,7 +13,12 @@ class PlanetaryRepositoryImpl @Inject constructor(private val planetaryService: 
             val result = response.body()
             if (response.isSuccessful && result != null) {
                 val resultMapper = AstronomyPictureMapper.mapToAstronomyPicture(result)
-                NetworkResource.Success(resultMapper)
+                val sanitizeImagesResult = resultMapper.filter { pod -> pod.mediaType == "image" }
+
+                sanitizeImagesResult.let {
+                    NetworkResource.Success(it)
+                }
+
             } else {
                 NetworkResource.Error("Error Occurred")
             }

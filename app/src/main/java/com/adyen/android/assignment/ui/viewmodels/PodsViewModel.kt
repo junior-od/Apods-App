@@ -4,41 +4,71 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.android.assignment.api.model.AstronomyPicture
 import com.adyen.android.assignment.data.repository.PlanetaryRepositoryImpl
+import com.adyen.android.assignment.data.usecases.FavouriteDbUseCases
 import com.adyen.android.assignment.utils.Constants
 import com.adyen.android.assignment.utils.DispatcherProviders
 import com.adyen.android.assignment.utils.NetworkResource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PodsViewModel @Inject constructor(
     private val planetaryRepositoryImpl: PlanetaryRepositoryImpl,
-    private val dispatchers: DispatcherProviders
+    private val dispatchers: DispatcherProviders,
+    private val podUseCases: FavouriteDbUseCases
 ): ViewModel()  {
 
     sealed class PodsEvent {
         class Success(val latestPods: List<AstronomyPicture>, val favouritePods: List<AstronomyPicture>) : PodsEvent()
         class Error(val errorText: String): PodsEvent()
+        class FavoriteChange(val latestPods: List<AstronomyPicture>, val favouritePods: List<AstronomyPicture>): PodsEvent()
         object Loading: PodsEvent()
         object Empty: PodsEvent()
     }
 
+    private var getFavouritesJob: Job? = null
+
     private var filterBy: Constants.PodsFilter = Constants.PodsFilter.TITLE
 
     private var tempLatestPods: MutableList<AstronomyPicture> = ArrayList()
+    private var tempFavouritePods: MutableList<AstronomyPicture> = ArrayList()
 
     private val _fetchLatestAndFavourites = MutableStateFlow<PodsEvent>(PodsEvent.Empty)
     val fetchLatestAndFavourites: StateFlow<PodsEvent> = _fetchLatestAndFavourites
 
-    private val _filterLatestAndFavourites = MutableStateFlow<PodsEvent>(PodsEvent.Empty)
-    val filterLatestAndFavourites: StateFlow<PodsEvent> = _filterLatestAndFavourites
+   init {
+       getFavourites(Constants.PodsFilter.TITLE)
+   }
+
+    fun pinFavourite() {
+
+        val latestAndFavourites = getLatestAndFavourites()
+        latestAndFavourites.let {
+            /* index 0 returns latest list
+            *  index 1 returns favourites list */
+            _fetchLatestAndFavourites.value = PodsEvent.FavoriteChange(it[0], it[1])
+        }
+    }
+
+    private fun getFavourites(filterBy: Constants.PodsFilter) {
+        //to cancel the old coroutine observing the database every time the method is called
+        getFavouritesJob?.cancel()
+        getFavouritesJob = podUseCases.getFavouriteUseCase(filterBy).onEach {
+                            favourites ->
+                             tempFavouritePods = favourites.toMutableList()
+                        }.launchIn(viewModelScope)
+    }
 
     fun fetchLatest() {
         viewModelScope.launch(dispatchers.io) {
             _fetchLatestAndFavourites.value = PodsEvent.Loading
+
             when (val response = planetaryRepositoryImpl.getPods()) {
                 is NetworkResource.Error -> {
                     response.message?.let {
@@ -47,20 +77,15 @@ class PodsViewModel @Inject constructor(
                 }
 
                 is NetworkResource.Success -> {
-                    response.data?.let {
 
-                        tempLatestPods = it.filter {pod -> pod.mediaType == "image" }.toMutableList() //sanitize list for images only
+                    tempLatestPods =  response.data?.toMutableList() ?: ArrayList()
 
-                        tempLatestPods.let { list ->
-                            val tempLatestPodsByDefaultFilterValue = addFilter(list, filterBy)
-
-                            tempLatestPodsByDefaultFilterValue.let { filteredLatestData ->
-
-
-                                _fetchLatestAndFavourites.value = PodsEvent.Success(filteredLatestData, ArrayList())
-                            }
-                        }
-
+                    //do some logic here and return latest and favourites
+                    val latestAndFavourites = getLatestAndFavourites()
+                    latestAndFavourites.let {
+                        /* index 0 returns latest list
+                        *  index 1 returns favourites list */
+                        _fetchLatestAndFavourites.value = PodsEvent.Success(it[0], it[1])
                     }
                 }
             }
@@ -68,16 +93,36 @@ class PodsViewModel @Inject constructor(
         }
     }
 
+    private fun getLatestAndFavourites(): List<List<AstronomyPicture>>{
+        val latestAndFavourites:  MutableList<List<AstronomyPicture>> = ArrayList()
+        //pop favourites if it exists in the data list from api
+        val filterUnFavouriteLatest = tempLatestPods.filter { item -> !tempFavouritePods.contains(item) }
+
+        //update temp latest pods
+        tempLatestPods = filterUnFavouriteLatest.toMutableList()
+
+        //add filter sort value on the list
+        val latestFilterSort = addFilter(filterUnFavouriteLatest, filterBy)
+        val favouriteFilterSort = addFilter(tempFavouritePods, filterBy)
+
+        latestAndFavourites.add(latestFilterSort)
+        latestAndFavourites.add(favouriteFilterSort)
+
+
+
+        return latestAndFavourites
+    }
+
+
+
     fun applyFilter(filterSet: Constants.PodsFilter) {
-        viewModelScope.launch(dispatchers.io) {
-            filterBy = filterSet
-            tempLatestPods.let {
-                list -> val tempLatestPodsByFilterValue = addFilter(list, filterSet)
-                tempLatestPodsByFilterValue.let { filteredLatestData ->
-                    _filterLatestAndFavourites.value =  PodsEvent.Success(filteredLatestData, ArrayList())
-                }
-            }
-        }
+        filterBy = filterSet
+
+        val tempFavouritePodsByFilterValue = addFilter(tempFavouritePods, filterSet)
+
+        val tempLatestPodsByFilterValue = addFilter(tempLatestPods, filterSet)
+
+        _fetchLatestAndFavourites.value = PodsEvent.FavoriteChange(tempLatestPodsByFilterValue, tempFavouritePodsByFilterValue)
     }
 
     private fun addFilter(list: List<AstronomyPicture>, filterSet: Constants.PodsFilter): List<AstronomyPicture>{
