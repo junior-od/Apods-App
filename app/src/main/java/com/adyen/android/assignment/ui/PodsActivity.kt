@@ -47,6 +47,7 @@ class PodsActivity : AppCompatActivity(), PodsRecyclerAdapter.PodsListener,
         setupReorderListModal()
 
         setupRecyclerViews()
+        initializeLatestPodsAdapter()
 
         getLatestPods()
 
@@ -118,7 +119,8 @@ class PodsActivity : AppCompatActivity(), PodsRecyclerAdapter.PodsListener,
 
                     is PodsViewModel.PodsEvent.Success -> {
                         showViewsAfterSuccessfulLoad(event.favouritePods)
-                        initializeLatestPodsAdapter(event.latestPods, event.favouritePods)
+                        podsRecycleAdapter?.updateItems(event.latestPods)
+                        favouritePodsRecyclerAdapter?.updateItems(event.favouritePods)
 
                     }
 
@@ -129,11 +131,6 @@ class PodsActivity : AppCompatActivity(), PodsRecyclerAdapter.PodsListener,
                         showRefreshView()
                     }
 
-                    is PodsViewModel.PodsEvent.FavoriteChange -> {
-                        binding.favoritesLayout.visibility = if (event.favouritePods.isNotEmpty()) View.VISIBLE else View.GONE
-                        podsRecycleAdapter?.updateItems(event.latestPods)
-                        favouritePodsRecyclerAdapter?.updateItems(event.favouritePods)
-                    }
 
                     else -> Unit
                 }
@@ -188,13 +185,15 @@ class PodsActivity : AppCompatActivity(), PodsRecyclerAdapter.PodsListener,
 
         val layoutManager1 = LinearLayoutManager(this)
         binding.favouriteRecyclerView.layoutManager = layoutManager1
+
+
     }
 
-    private fun initializeLatestPodsAdapter(latestPods: List<AstronomyPicture>, favouritePods: List<AstronomyPicture>) {
-        podsRecycleAdapter = PodsRecyclerAdapter(this@PodsActivity, latestPods, this@PodsActivity)
+    private fun initializeLatestPodsAdapter() {
+        podsRecycleAdapter = PodsRecyclerAdapter(this@PodsActivity, ArrayList(), this@PodsActivity)
         binding.latestRecyclerView.adapter = podsRecycleAdapter
 
-        favouritePodsRecyclerAdapter = FavouritePodsRecyclerAdapter(this@PodsActivity, favouritePods, this@PodsActivity)
+        favouritePodsRecyclerAdapter = FavouritePodsRecyclerAdapter(this@PodsActivity, ArrayList(), this@PodsActivity)
         binding.favouriteRecyclerView.adapter = favouritePodsRecyclerAdapter
     }
 

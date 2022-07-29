@@ -27,7 +27,6 @@ class PodsViewModel @Inject constructor(
     sealed class PodsEvent {
         class Success(val latestPods: List<AstronomyPicture>, val favouritePods: List<AstronomyPicture>) : PodsEvent()
         class Error(val errorText: String): PodsEvent()
-        class FavoriteChange(val latestPods: List<AstronomyPicture>, val favouritePods: List<AstronomyPicture>): PodsEvent()
         object Loading: PodsEvent()
         object Empty: PodsEvent()
     }
@@ -52,7 +51,7 @@ class PodsViewModel @Inject constructor(
         latestAndFavourites.let {
             /* index 0 returns latest list
             *  index 1 returns favourites list */
-            _fetchLatestAndFavourites.value = PodsEvent.FavoriteChange(it[0], it[1])
+            _fetchLatestAndFavourites.value = PodsEvent.Success(it[0], it[1])
         }
     }
 
@@ -122,7 +121,7 @@ class PodsViewModel @Inject constructor(
 
         val tempLatestPodsByFilterValue = addFilter(tempLatestPods, filterSet)
 
-        _fetchLatestAndFavourites.value = PodsEvent.FavoriteChange(tempLatestPodsByFilterValue, tempFavouritePodsByFilterValue)
+        _fetchLatestAndFavourites.value = PodsEvent.Success(tempLatestPodsByFilterValue, tempFavouritePodsByFilterValue)
     }
 
     private fun addFilter(list: List<AstronomyPicture>, filterSet: Constants.PodsFilter): List<AstronomyPicture>{
