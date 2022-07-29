@@ -3,10 +3,12 @@ package com.adyen.android.assignment.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.api.model.AstronomyPicture
 import com.adyen.android.assignment.databinding.ActivityDetailBinding
+import com.adyen.android.assignment.ui.viewmodels.PodsDetailsViewModel
 import com.adyen.android.assignment.utils.Constants.IS_FAVOURITE
 import com.adyen.android.assignment.utils.Constants.POD
 import com.adyen.android.assignment.utils.DateConverter
@@ -17,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
+    private val detailsViewModel: PodsDetailsViewModel by viewModels()
     private lateinit var pod: AstronomyPicture
     private var isPodFavourite: Boolean = false
 
@@ -25,9 +28,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.backViewLayout.setOnClickListener {
-            onBackPressed()
-        }
+        binding.backViewLayout.setOnClickListener { onBackPressed() }
 
         intent.getParcelableExtra<AstronomyPicture>(POD).let {
             it?.let {
@@ -48,17 +49,25 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
-        binding.favourite.setOnClickListener {
-            isPodFavourite = !isPodFavourite
-            isPodFavourite.let {
-                binding.favourite
-                    .setImageDrawable(
-                        getDrawable(if (it) R.drawable.ic_favorite_filled
-                        else R.drawable.ic_favorite_border))
+        binding.favourite.setOnClickListener { onFavouriteClicked() }
 
-            }
+    }
+
+    private fun onFavouriteClicked(){
+        if (isPodFavourite) {
+            detailsViewModel.removeFavorite(pod)
+        } else {
+            detailsViewModel.addFavorite(pod)
         }
 
+        isPodFavourite = !isPodFavourite
+        isPodFavourite.let {
+            binding.favourite
+                .setImageDrawable(
+                    getDrawable(if (it) R.drawable.ic_favorite_filled
+                    else R.drawable.ic_favorite_border))
+
+        }
     }
 
     private fun bindDataToView() {
