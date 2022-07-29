@@ -42,11 +42,14 @@ class PodsViewModel @Inject constructor(
     val fetchLatestAndFavourites: StateFlow<PodsEvent> = _fetchLatestAndFavourites
 
    init {
-       getFavourites(Constants.PodsFilter.TITLE)
+       getFavourites()
    }
 
     fun pinFavourite() {
+        updateLatestAndFavouritesState()
+    }
 
+    private fun updateLatestAndFavouritesState(){
         val latestAndFavourites = getLatestAndFavourites()
         latestAndFavourites.let {
             /* index 0 returns latest list
@@ -55,7 +58,7 @@ class PodsViewModel @Inject constructor(
         }
     }
 
-    private fun getFavourites(filterBy: Constants.PodsFilter) {
+    private fun getFavourites() {
         //to cancel the old coroutine observing the database every time the method is called
         getFavouritesJob?.cancel()
         getFavouritesJob = podUseCases.getFavouriteUseCase(filterBy).onEach {
@@ -79,13 +82,7 @@ class PodsViewModel @Inject constructor(
 
                     tempLatestPods =  response.data?.toMutableList() ?: ArrayList()
 
-                    //do some logic here and return latest and favourites
-                    val latestAndFavourites = getLatestAndFavourites()
-                    latestAndFavourites.let {
-                        /* index 0 returns latest list
-                        *  index 1 returns favourites list */
-                        _fetchLatestAndFavourites.value = PodsEvent.Success(it[0], it[1])
-                    }
+                    updateLatestAndFavouritesState()
                 }
             }
 
@@ -97,9 +94,6 @@ class PodsViewModel @Inject constructor(
         //pop favourites if it exists in the data list from api
         val filterUnFavouriteLatest = tempLatestPods.filter { item -> !tempFavouritePods.contains(item) }
 
-        //update temp latest pods
-        tempLatestPods = filterUnFavouriteLatest.toMutableList()
-
         //add filter sort value on the list
         val latestFilterSort = addFilter(filterUnFavouriteLatest, filterBy)
         val favouriteFilterSort = addFilter(tempFavouritePods, filterBy)
@@ -107,21 +101,13 @@ class PodsViewModel @Inject constructor(
         latestAndFavourites.add(latestFilterSort)
         latestAndFavourites.add(favouriteFilterSort)
 
-
-
         return latestAndFavourites
     }
-
-
 
     fun applyFilter(filterSet: Constants.PodsFilter) {
         filterBy = filterSet
 
-        val tempFavouritePodsByFilterValue = addFilter(tempFavouritePods, filterSet)
-
-        val tempLatestPodsByFilterValue = addFilter(tempLatestPods, filterSet)
-
-        _fetchLatestAndFavourites.value = PodsEvent.Success(tempLatestPodsByFilterValue, tempFavouritePodsByFilterValue)
+        updateLatestAndFavouritesState()
     }
 
     private fun addFilter(list: List<AstronomyPicture>, filterSet: Constants.PodsFilter): List<AstronomyPicture>{
