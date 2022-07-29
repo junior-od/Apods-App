@@ -1,24 +1,25 @@
 package com.adyen.android.assignment.ui.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.adyen.android.assignment.api.model.AstronomyPicture
 import com.adyen.android.assignment.databinding.SinglePodLayoutBinding
+import com.adyen.android.assignment.ui.util.PodsDiffCallback
 import com.adyen.android.assignment.utils.DateConverter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class PodsRecyclerAdapter (
     private val context: Context,
-    pods: List<AstronomyPicture>,
+    pods: MutableList<AstronomyPicture>,
     listener : PodsListener,
         ):  RecyclerView.Adapter<PodsRecyclerAdapter.PodsViewHolder>() {
 
     private val listener: PodsListener?
-    private var podsList: List<AstronomyPicture>
+    private var podsList: MutableList<AstronomyPicture>
 
     init {
         this.listener = listener
@@ -29,10 +30,13 @@ class PodsRecyclerAdapter (
         fun onPodsClicked(pod: AstronomyPicture)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun updateItems(podsList: List<AstronomyPicture>) {
-        this.podsList = podsList
-        notifyDataSetChanged()
+
+        val diffCallback = PodsDiffCallback(this.podsList, podsList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        this.podsList.clear()
+        this.podsList.addAll(podsList)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(
@@ -58,21 +62,16 @@ class PodsRecyclerAdapter (
         position: Int
     ) {
         val podModel = podsList[position]
-        holder.bind(podModel, position)
-    }
-
-    private fun selectedPodClicked(position: Int) {
-        val podModel = podsList[position]
-        listener?.onPodsClicked(podModel)
+        holder.bind(podModel)
     }
 
     inner class PodsViewHolder (
         private val binding: SinglePodLayoutBinding
             ): RecyclerView.ViewHolder(binding.root) {
 
-                fun bind(podModel: AstronomyPicture, position: Int) {
+                fun bind(podModel: AstronomyPicture) {
                     binding.main.setOnClickListener {
-                        selectedPodClicked(position)
+                        listener?.onPodsClicked(podModel)
                     }
 
                     podModel.url.let {
