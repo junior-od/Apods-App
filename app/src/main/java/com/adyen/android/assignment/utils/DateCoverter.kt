@@ -10,11 +10,16 @@ class DateConverter {
             val ddMmYyyyFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             val yyyyMMddFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-            val yyyyMMddDate = yyyyMMddFormat.parse(date)
+            try {
+                val yyyyMMddDate = yyyyMMddFormat.parse(date)
 
-            yyyyMMddDate?.let {
-                return ddMmYyyyFormat.format(yyyyMMddDate)
+                yyyyMMddDate?.let {
+                    return ddMmYyyyFormat.format(yyyyMMddDate)
+                }
+            } catch (e: Exception) {
+
             }
+
 
             return ""
         }

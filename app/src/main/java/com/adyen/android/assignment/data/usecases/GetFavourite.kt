@@ -18,7 +18,7 @@ class GetFavourite(
             favourties ->
             when (podsFilter) {
                 Constants.PodsFilter.TITLE ->
-                  AstronomyPictureMapper.mapAPodEntityToAstronomyPicture(favourties).sortedBy { it.title }
+                  AstronomyPictureMapper.mapAPodEntityToAstronomyPicture(favourties).sortedBy { it.title.lowercase() }
                 Constants.PodsFilter.DATE ->
                     AstronomyPictureMapper.mapAPodEntityToAstronomyPicture(favourties).sortedByDescending { it.date }
             }
