@@ -54,9 +54,15 @@ dependencies {
     androidTestImplementation "androidx.test:runner:1.4.0"
     androidTestImplementation "androidx.test.ext:junit:1.1.3"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "com.google.truth:truth:1.1.3"
 
     testImplementation "junit:junit:4.13.2"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
+    testImplementation "com.google.truth:truth:1.1.3"
+    testImplementation "org.mockito:mockito-core:2.21.0"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -81,6 +87,8 @@ dependencies {
 
     //architectural components for view model and lifecycle stuffs
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
+
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
     //activity ktx  for view models delegation from kotlin to inject view models
     implementation "androidx.activity:activity-ktx:1.5.0"

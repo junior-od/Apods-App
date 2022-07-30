@@ -113,7 +113,7 @@ class PodsViewModel @Inject constructor(
     private fun addFilter(list: List<AstronomyPicture>, filterSet: Constants.PodsFilter): List<AstronomyPicture>{
         return when (filterSet) {
             Constants.PodsFilter.TITLE -> {
-                list.sortedBy { it.title }
+                list.sortedBy { it.title.lowercase() }
             }
 
             Constants.PodsFilter.DATE -> {
