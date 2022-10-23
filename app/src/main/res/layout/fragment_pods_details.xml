@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.DetailActivity">
+
+    <ImageView
+        android:id="@+id/podImage"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/pod_image"
+        tools:src="@drawable/ic_dark_blue_rc_bg"
+        />
+
+    <View
+        android:id="@+id/gradientBg"
+        android:layout_height="270dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/ic_bottom_gradient_bg"
+        />
+
+    <RelativeLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/backViewLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            tools:ignore="UnusedAttribute">
+            <ImageView
+                android:id="@+id/backArrow"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="25dp"
+                android:contentDescription="@string/back_arrow"
+                android:src="@drawable/ic_arrow_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/backViewLayout"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/our_universe"
+            android:textStyle="bold"
+            android:textColor="@color/textColor"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <RelativeLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="35dp">
+
+            <TextView
+                android:id="@+id/podTitle"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                tools:text="The Milky Way"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/textColor"
+                android:fontFamily="@font/roboto"
+                android:textSize="30sp"
+                />
+
+            <TextView
+                android:id="@+id/podDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="03/10/2022"
+                android:textColor="@color/textColor"
+                android:textSize="16sp"
+                android:layout_marginTop="40dp"
+                android:layout_below="@+id/podTitle"
+                />
+
+            <ImageView
+                android:id="@+id/favourite"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:src="@drawable/ic_favorite_border"
+                android:contentDescription="@string/favourite_icon"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/podDate"
+                />
+
+            <TextView
+                android:id="@+id/podExplanation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/podDate"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/textColor"
+                android:textSize="12sp"
+                android:layout_marginBottom="50dp"
+                tools:text="@string/explanation_sample" />
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

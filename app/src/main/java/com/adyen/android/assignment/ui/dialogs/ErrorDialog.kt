@@ -5,15 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.databinding.ActivityErrorBinding
-import com.adyen.android.assignment.ui.interfaces.RefreshCallbackListener
+import com.adyen.android.assignment.ui.viewmodels.PodsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class ErrorDialog (private val refreshCallbackListener: RefreshCallbackListener): DialogFragment() {
+@AndroidEntryPoint
+class ErrorDialog : DialogFragment() {
 
     private var _binding: ActivityErrorBinding? = null
 
     private val binding get() = _binding!!
+
+    private val podsViewModel: PodsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,7 +26,7 @@ class ErrorDialog (private val refreshCallbackListener: RefreshCallbackListener)
         savedInstanceState: Bundle?
     ): View {
         isCancelable = false
-        _binding = ActivityErrorBinding.inflate(LayoutInflater.from(context))
+        _binding = ActivityErrorBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -30,7 +35,8 @@ class ErrorDialog (private val refreshCallbackListener: RefreshCallbackListener)
 
         binding.refreshBtn.setOnClickListener {
             dismiss()
-            refreshCallbackListener.onRefresh()
+
+            podsViewModel.refreshList()
         }
 
     }

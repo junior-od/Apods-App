@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_gation"
+    app:startDestination="@id/podsFragment">
+
+    <fragment
+        android:id="@+id/podsFragment"
+        android:name="com.adyen.android.assignment.ui.fragments.PodsFragment"
+        android:label="PodsFragment" >
+        <action
+            android:id="@+id/action_podsFragment_to_errorDialog"
+            app:destination="@id/errorDialog"
+            />
+        <action
+            android:id="@+id/action_podsFragment_to_podsDetailsFragment"
+            app:destination="@id/podsDetailsFragment"
+            />
+    </fragment>
+    <dialog
+        android:id="@+id/errorDialog"
+        android:name="com.adyen.android.assignment.ui.dialogs.ErrorDialog"
+        android:label="ErrorDialog" />
+    <fragment
+        android:id="@+id/podsDetailsFragment"
+        android:name="com.adyen.android.assignment.ui.fragments.PodsDetailsFragment"
+        android:label="PodsDetailsFragment" >
+        <argument
+            android:name="favourite"
+            app:argType="boolean"
+             />
+        <argument
+            android:name="pod"
+            app:argType="com.adyen.android.assignment.api.model.AstronomyPicture" />
+
+    </fragment>
+</navigation>
