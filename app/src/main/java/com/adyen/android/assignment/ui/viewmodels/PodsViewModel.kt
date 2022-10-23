@@ -29,6 +29,7 @@ class PodsViewModel @Inject constructor(
         class Error(val errorText: String): PodsEvent()
         object Loading: PodsEvent()
         object Empty: PodsEvent()
+        class Refresh(val boolean: Boolean): PodsEvent()
     }
 
     private var getFavouritesJob: Job? = null
@@ -41,12 +42,19 @@ class PodsViewModel @Inject constructor(
     private val _fetchLatestAndFavourites = MutableStateFlow<PodsEvent>(PodsEvent.Empty)
     val fetchLatestAndFavourites: StateFlow<PodsEvent> = _fetchLatestAndFavourites
 
+    private val _refreshList = MutableStateFlow<PodsEvent>(PodsEvent.Empty)
+    val refreshList: StateFlow<PodsEvent> = _refreshList
+
    init {
        getFavourites()
    }
 
     fun pinFavourite() {
         updateLatestAndFavouritesState()
+    }
+
+    fun getFilterBy(): Constants.PodsFilter{
+        return filterBy
     }
 
     private fun updateLatestAndFavouritesState(){
@@ -65,6 +73,10 @@ class PodsViewModel @Inject constructor(
                             favourites ->
                              tempFavouritePods = favourites.toMutableList()
                         }.launchIn(viewModelScope)
+    }
+
+    fun refreshList() {
+        _refreshList.value = PodsEvent.Refresh(true)
     }
 
     fun fetchLatest() {
