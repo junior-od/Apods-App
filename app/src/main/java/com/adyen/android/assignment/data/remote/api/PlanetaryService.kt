@@ -1,8 +1,8 @@
-package com.adyen.android.assignment.api
+package com.adyen.android.assignment.data.remote.api
 
 import com.adyen.android.assignment.BuildConfig
-import com.adyen.android.assignment.api.model.AstronomyPictureResponse
-import com.adyen.android.assignment.api.model.DayAdapter
+import com.adyen.android.assignment.data.remote.api.model.AstronomyPictureResponse
+import com.adyen.android.assignment.data.remote.api.model.DayAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Response

@@ -1,7 +1,7 @@
 package com.adyen.android.assignment.data.repository
 
-import com.adyen.android.assignment.api.PlanetaryService
-import com.adyen.android.assignment.api.model.AstronomyPicture
+import com.adyen.android.assignment.data.remote.api.PlanetaryService
+import com.adyen.android.assignment.data.remote.api.model.AstronomyPicture
 import com.adyen.android.assignment.data.mappers.AstronomyPictureMapper
 import com.adyen.android.assignment.utils.NetworkResource
 import javax.inject.Inject

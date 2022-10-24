@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.ui.dialogs
+package com.adyen.android.assignment.ui.error
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.databinding.ActivityErrorBinding
-import com.adyen.android.assignment.ui.viewmodels.PodsViewModel
+import com.adyen.android.assignment.ui.ouruniverse.PodsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

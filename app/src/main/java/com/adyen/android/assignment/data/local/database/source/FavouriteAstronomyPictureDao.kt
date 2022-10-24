@@ -1,7 +1,7 @@
-package com.adyen.android.assignment.database.source
+package com.adyen.android.assignment.data.local.database.source
 
 import androidx.room.*
-import com.adyen.android.assignment.database.model.FavouriteAstronomyPictureEntity
+import com.adyen.android.assignment.data.local.database.model.FavouriteAstronomyPictureEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

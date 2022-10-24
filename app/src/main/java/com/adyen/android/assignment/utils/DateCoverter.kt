@@ -3,26 +3,23 @@ package com.adyen.android.assignment.utils
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateConverter {
+object DateConverter {
 
-    companion object {
-        fun formatDateToDdMmYyyy(date: String): String {
-            val ddMmYyyyFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            val yyyyMMddFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    fun formatDateToDdMmYyyy(date: String): String {
+        val ddMmYyyyFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val yyyyMMddFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-            try {
-                val yyyyMMddDate = yyyyMMddFormat.parse(date)
+        try {
+            val yyyyMMddDate = yyyyMMddFormat.parse(date)
 
-                yyyyMMddDate?.let {
-                    return ddMmYyyyFormat.format(yyyyMMddDate)
-                }
-            } catch (e: Exception) {
-
+            yyyyMMddDate?.let {
+                return ddMmYyyyFormat.format(yyyyMMddDate)
             }
+        } catch (e: Exception) {
 
-
-            return ""
         }
-    }
 
+
+        return ""
+    }
 }

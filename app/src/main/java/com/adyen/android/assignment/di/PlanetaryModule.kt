@@ -1,6 +1,6 @@
 package com.adyen.android.assignment.di
 
-import com.adyen.android.assignment.api.PlanetaryService
+import com.adyen.android.assignment.data.remote.api.PlanetaryService
 import com.adyen.android.assignment.data.repository.PlanetaryRepositoryImpl
 import dagger.Module
 import dagger.Provides

@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.ui.fragments
+package com.adyen.android.assignment.ui.poddetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.databinding.FragmentPodsDetailsBinding
-import com.adyen.android.assignment.ui.viewmodels.PodsDetailsViewModel
 import com.adyen.android.assignment.utils.DateConverter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions

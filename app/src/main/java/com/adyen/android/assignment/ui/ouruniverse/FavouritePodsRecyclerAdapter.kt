@@ -1,22 +1,21 @@
-package com.adyen.android.assignment.ui.adapters
+package com.adyen.android.assignment.ui.ouruniverse
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.adyen.android.assignment.api.model.AstronomyPicture
+import com.adyen.android.assignment.data.remote.api.model.AstronomyPicture
 import com.adyen.android.assignment.databinding.SinglePodLayoutBinding
-import com.adyen.android.assignment.ui.util.PodsDiffCallback
 import com.adyen.android.assignment.utils.DateConverter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
-class PodsRecyclerAdapter (
+class FavouritePodsRecyclerAdapter (
     private val context: Context,
     pods: MutableList<AstronomyPicture>,
     listener : PodsListener,
-        ):  RecyclerView.Adapter<PodsRecyclerAdapter.PodsViewHolder>() {
+):  RecyclerView.Adapter<FavouritePodsRecyclerAdapter.FavouritePodsViewHolder>() {
 
     private val listener: PodsListener?
     private var podsList: MutableList<AstronomyPicture>
@@ -27,7 +26,7 @@ class PodsRecyclerAdapter (
     }
 
     interface PodsListener {
-        fun onPodsClicked(pod: AstronomyPicture)
+        fun onFavoritePodClicked(pod: AstronomyPicture)
     }
 
     fun updateItems(podsList: List<AstronomyPicture>) {
@@ -42,8 +41,8 @@ class PodsRecyclerAdapter (
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PodsViewHolder {
-        return PodsViewHolder(
+    ): FavouritePodsViewHolder {
+        return FavouritePodsViewHolder(
             SinglePodLayoutBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -58,39 +57,40 @@ class PodsRecyclerAdapter (
     }
 
     override fun onBindViewHolder(
-        holder: PodsViewHolder,
+        holder: FavouritePodsViewHolder,
         position: Int
     ) {
         val podModel = podsList[position]
         holder.bind(podModel)
     }
 
-    inner class PodsViewHolder (
+
+    inner class FavouritePodsViewHolder (
         private val binding: SinglePodLayoutBinding
-            ): RecyclerView.ViewHolder(binding.root) {
+    ): RecyclerView.ViewHolder(binding.root) {
 
-                fun bind(podModel: AstronomyPicture) {
-                    binding.main.setOnClickListener {
-                        listener?.onPodsClicked(podModel)
-                    }
-
-                    podModel.url.let {
-                        Glide.with(context)
-                        .load(it)
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(binding.podImage)
-                    }
-
-                    podModel.title.let {
-                        binding.podTitle.text = it
-                    }
-
-                    podModel.date.let {
-                        binding.podDate.text = DateConverter.formatDateToDdMmYyyy(it)
-                    }
-
-                }
+        fun bind(podModel: AstronomyPicture) {
+            binding.main.setOnClickListener {
+                listener?.onFavoritePodClicked(podModel)
             }
+
+            podModel.url.let {
+                Glide.with(context)
+                    .load(it)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(binding.podImage)
+            }
+
+            podModel.title.let {
+                binding.podTitle.text = it
+            }
+
+            podModel.date.let {
+                binding.podDate.text = DateConverter.formatDateToDdMmYyyy(it)
+            }
+
+        }
+    }
 
 
 }

@@ -1,8 +1,8 @@
-package com.adyen.android.assignment.database.source
+package com.adyen.android.assignment.data.local.database.source
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.adyen.android.assignment.database.model.FavouriteAstronomyPictureEntity
+import com.adyen.android.assignment.data.local.database.model.FavouriteAstronomyPictureEntity
 
 @Database(entities = [FavouriteAstronomyPictureEntity::class], version = 1)
 abstract class FavouriteAstronomyPictureDatabase: RoomDatabase() {
