@@ -1,6 +1,6 @@
 package com.adyen.android.assignment
 
-import com.adyen.android.assignment.api.PlanetaryService
+import com.adyen.android.assignment.data.remote.api.PlanetaryService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Ignore

@@ -1,7 +1,7 @@
 package com.adyen.android.assignment.data.repository
 
-import com.adyen.android.assignment.database.model.FavouriteAstronomyPictureEntity
-import com.adyen.android.assignment.database.source.FavouriteAstronomyPictureDao
+import com.adyen.android.assignment.data.local.database.model.FavouriteAstronomyPictureEntity
+import com.adyen.android.assignment.data.local.database.source.FavouriteAstronomyPictureDao
 import kotlinx.coroutines.flow.Flow
 
 class FavouriteDatabaseRepositoryImpl(private val dao: FavouriteAstronomyPictureDao): FavouriteDatabaseRepository {

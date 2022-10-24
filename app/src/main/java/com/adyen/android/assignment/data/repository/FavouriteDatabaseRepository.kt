@@ -1,6 +1,6 @@
 package com.adyen.android.assignment.data.repository
 
-import com.adyen.android.assignment.database.model.FavouriteAstronomyPictureEntity
+import com.adyen.android.assignment.data.local.database.model.FavouriteAstronomyPictureEntity
 import kotlinx.coroutines.flow.Flow
 
 interface FavouriteDatabaseRepository {

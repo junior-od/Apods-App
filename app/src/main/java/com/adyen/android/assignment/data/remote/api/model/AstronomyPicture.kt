@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.api.model
+package com.adyen.android.assignment.data.remote.api.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

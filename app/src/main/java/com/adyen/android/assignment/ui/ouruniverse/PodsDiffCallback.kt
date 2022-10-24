@@ -1,7 +1,7 @@
-package com.adyen.android.assignment.ui.util
+package com.adyen.android.assignment.ui.ouruniverse
 
 import androidx.recyclerview.widget.DiffUtil
-import com.adyen.android.assignment.api.model.AstronomyPicture
+import com.adyen.android.assignment.data.remote.api.model.AstronomyPicture
 
 class PodsDiffCallback(private val oldList: List<AstronomyPicture>,
                        private val newList: List<AstronomyPicture>): DiffUtil.Callback(){

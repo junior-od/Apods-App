@@ -1,6 +1,6 @@
 package com.adyen.android.assignment.data.usecases
 
-import com.adyen.android.assignment.api.model.AstronomyPicture
+import com.adyen.android.assignment.data.remote.api.model.AstronomyPicture
 import com.adyen.android.assignment.data.mappers.AstronomyPictureMapper
 import com.adyen.android.assignment.data.repository.FavouriteDatabaseRepository
 import com.adyen.android.assignment.utils.Constants

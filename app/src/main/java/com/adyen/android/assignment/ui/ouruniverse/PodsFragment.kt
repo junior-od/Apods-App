@@ -1,7 +1,6 @@
-package com.adyen.android.assignment.ui.fragments
+package com.adyen.android.assignment.ui.ouruniverse
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adyen.android.assignment.R
-import com.adyen.android.assignment.api.model.AstronomyPicture
+import com.adyen.android.assignment.data.remote.api.model.AstronomyPicture
 import com.adyen.android.assignment.databinding.FragmentPodsBinding
 import com.adyen.android.assignment.databinding.ReorderlistDialogBinding
-import com.adyen.android.assignment.ui.adapters.FavouritePodsRecyclerAdapter
-import com.adyen.android.assignment.ui.adapters.PodsRecyclerAdapter
-import com.adyen.android.assignment.ui.viewmodels.PodsViewModel
 import com.adyen.android.assignment.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -221,7 +217,11 @@ class PodsFragment : Fragment(), PodsRecyclerAdapter.PodsListener,
     }
 
     private fun goToPodDetails(isFavourite: Boolean, pod: AstronomyPicture) {
-        val action = PodsFragmentDirections.actionPodsFragmentToPodsDetailsFragment(isFavourite,pod)
+        val action =
+            PodsFragmentDirections.actionPodsFragmentToPodsDetailsFragment(
+                isFavourite,
+                pod
+            )
         findNavController().navigate(action)
 
     }

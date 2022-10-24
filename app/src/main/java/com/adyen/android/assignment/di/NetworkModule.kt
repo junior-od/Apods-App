@@ -1,7 +1,7 @@
 package com.adyen.android.assignment.di
 
 import com.adyen.android.assignment.BuildConfig
-import com.adyen.android.assignment.api.model.DayAdapter
+import com.adyen.android.assignment.data.remote.api.model.DayAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

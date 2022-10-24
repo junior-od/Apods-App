@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/podsFragment"
-        android:name="com.adyen.android.assignment.ui.fragments.PodsFragment"
+        android:name="com.adyen.android.assignment.ui.ouruniverse.PodsFragment"
         android:label="PodsFragment" >
         <action
             android:id="@+id/action_podsFragment_to_errorDialog"
@@ -19,11 +19,11 @@
     </fragment>
     <dialog
         android:id="@+id/errorDialog"
-        android:name="com.adyen.android.assignment.ui.dialogs.ErrorDialog"
+        android:name="com.adyen.android.assignment.ui.error.ErrorDialog"
         android:label="ErrorDialog" />
     <fragment
         android:id="@+id/podsDetailsFragment"
-        android:name="com.adyen.android.assignment.ui.fragments.PodsDetailsFragment"
+        android:name="com.adyen.android.assignment.ui.poddetails.PodsDetailsFragment"
         android:label="PodsDetailsFragment" >
         <argument
             android:name="favourite"
@@ -31,7 +31,8 @@
              />
         <argument
             android:name="pod"
-            app:argType="com.adyen.android.assignment.api.model.AstronomyPicture" />
+            app:argType="com.adyen.android.assignment.data.remote.api.model.AstronomyPicture" />
+
 
     </fragment>
 </navigation>

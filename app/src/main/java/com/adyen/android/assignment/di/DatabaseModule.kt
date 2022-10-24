@@ -8,7 +8,7 @@ import com.adyen.android.assignment.data.usecases.DeleteFavourite
 import com.adyen.android.assignment.data.usecases.FavouriteDbUseCases
 import com.adyen.android.assignment.data.usecases.GetFavourite
 import com.adyen.android.assignment.data.usecases.InsertFavourite
-import com.adyen.android.assignment.database.source.FavouriteAstronomyPictureDatabase
+import com.adyen.android.assignment.data.local.database.source.FavouriteAstronomyPictureDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
