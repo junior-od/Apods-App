@@ -62,6 +62,8 @@ class PodsFragment : Fragment(), PodsRecyclerAdapter.PodsListener,
         getLatestPods()
 
 
+        binding.content.isNestedScrollingEnabled = true
+
         bindingReorderDialog.reset.setOnClickListener {
             setTitleChecked()
             applyFilter()
