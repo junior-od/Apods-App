@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_gation"
     app:startDestination="@id/podsFragment">
 
     <fragment
+        tools:layout="@layout/fragment_pods"
         android:id="@+id/podsFragment"
         android:name="com.adyen.android.assignment.ui.ouruniverse.PodsFragment"
         android:label="PodsFragment" >
@@ -18,10 +20,12 @@
             />
     </fragment>
     <dialog
+        tools:layout="@layout/activity_error"
         android:id="@+id/errorDialog"
         android:name="com.adyen.android.assignment.ui.error.ErrorDialog"
         android:label="ErrorDialog" />
     <fragment
+        tools:layout="@layout/fragment_pods_details"
         android:id="@+id/podsDetailsFragment"
         android:name="com.adyen.android.assignment.ui.poddetails.PodsDetailsFragment"
         android:label="PodsDetailsFragment" >
