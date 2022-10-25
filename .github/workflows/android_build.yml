@@ -1,22 +1,40 @@
-name: Android Build #name of the workflow
+name: Android Test and Build #name of the workflow
 
 on: pull_request   #defines when should this workflow be triggered
 
 jobs: #we need to define the set of tasks that need to be run when the workflow starts
-  build:
-    runs-on: ubuntu-latest
+   #run unit test
+   unit_tests:
+     runs-on: [ubuntu-latest]
+     steps:
+       - uses: actions/checkout@v2
 
-    #first we need to checkout the code
-    steps:
-      - uses: actions/checkout@v1
+       - name: Unit tests
+         run: ./gradlew test
+   #run ui tests
+   android_tests:
+     runs-on: [macos-latest]
+       steps:
+         - uses: actions/checkout@v2
 
-      - name: Set up JDK 11 # second setup jdk env that will be used
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
+         - name: Instrumentation Tests
+           uses: reactivecircus/android-emulator-runner@v2
+           with:
+             api-level: 29
+             script: ./gradlew connectedAndroidTest
+   #build project
+   build:
+     needs: [ unit_tests, android_tests ]
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
 
-      - name: Run Tests  # third run tests
-        run: ./gradlew test
+        - name: Set up JDK 11 # second setup jdk env that will be used
+          uses: actions/setup-java@v1
+          with:
+            java-version: 11
 
-      - name: Build Project #build project
-        run: ./gradlew assemble
+        - name: Build Project #build project
+          run: ./gradlew assemble
+
