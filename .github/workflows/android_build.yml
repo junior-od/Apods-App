@@ -10,7 +10,7 @@ jobs: #we need to define the set of tasks that need to be run when the workflow 
     steps:
       - uses: actions/checkout@v1
 
-      - name: Set up JDK # second setup jdk env that will be used
+      - name: Set up JDK 1.8 # second setup jdk env that will be used
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
