@@ -19,7 +19,7 @@ class ErrorDialog : DialogFragment() {
     private val binding get() = _binding!!
 
     private val podsViewModel: PodsViewModel by activityViewModels()
-
+//
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
