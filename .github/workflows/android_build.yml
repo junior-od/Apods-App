@@ -16,6 +16,11 @@ jobs: #we need to define the set of tasks that need to be run when the workflow 
      runs-on: [macos-latest]
      steps:
       - uses: actions/checkout@v2
+      
+      - name: Set up JDK 11 # second setup jdk env that will be used
+        uses: actions/setup-java@v1
+        with:
+         java-version: 11
 
       - name: Instrumentation Tests
         uses: reactivecircus/android-emulator-runner@v2
