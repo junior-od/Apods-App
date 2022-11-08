@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.data.usecases
+package com.adyen.android.assignment.domain.usecases
 
 data class FavouriteDbUseCases(
     val getFavouriteUseCase: GetFavourite,

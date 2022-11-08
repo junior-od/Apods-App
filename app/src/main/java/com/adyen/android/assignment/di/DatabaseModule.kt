@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.room.Room
 import com.adyen.android.assignment.data.repository.FavouriteDatabaseRepository
 import com.adyen.android.assignment.data.repository.FavouriteDatabaseRepositoryImpl
-import com.adyen.android.assignment.data.usecases.DeleteFavourite
-import com.adyen.android.assignment.data.usecases.FavouriteDbUseCases
-import com.adyen.android.assignment.data.usecases.GetFavourite
-import com.adyen.android.assignment.data.usecases.InsertFavourite
+import com.adyen.android.assignment.domain.usecases.DeleteFavourite
+import com.adyen.android.assignment.domain.usecases.FavouriteDbUseCases
+import com.adyen.android.assignment.domain.usecases.GetFavourite
+import com.adyen.android.assignment.domain.usecases.InsertFavourite
 import com.adyen.android.assignment.data.local.database.source.FavouriteAstronomyPictureDatabase
 import dagger.Module
 import dagger.Provides
@@ -36,7 +36,7 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideFavouriteDbUseCases(repository: FavouriteDatabaseRepository): FavouriteDbUseCases{
+    fun provideFavouriteDbUseCases(repository: FavouriteDatabaseRepository): FavouriteDbUseCases {
         return FavouriteDbUseCases(
             getFavouriteUseCase = GetFavourite(repository),
             deleteFavourite = DeleteFavourite(repository),

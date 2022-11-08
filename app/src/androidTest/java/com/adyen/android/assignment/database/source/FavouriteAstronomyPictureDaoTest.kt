@@ -21,12 +21,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4::class) //just to tell it is an instrumented test
 @SmallTest
 class FavouriteAstronomyPictureDaoTest {
 
     @get:Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
+    var instantTaskExecutorRule = InstantTaskExecutorRule() // tell junit we want to exexute steps in the test func one after the other in the same thread
 
     private lateinit var database: FavouriteAstronomyPictureDatabase
     private lateinit var dao: FavouriteAstronomyPictureDao

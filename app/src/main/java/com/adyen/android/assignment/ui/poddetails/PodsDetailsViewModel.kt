@@ -3,7 +3,7 @@ package com.adyen.android.assignment.ui.poddetails
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.android.assignment.data.remote.api.model.AstronomyPicture
-import com.adyen.android.assignment.data.usecases.FavouriteDbUseCases
+import com.adyen.android.assignment.domain.usecases.FavouriteDbUseCases
 import com.adyen.android.assignment.utils.DispatcherProviders
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

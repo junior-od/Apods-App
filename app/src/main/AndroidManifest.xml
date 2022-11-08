@@ -15,14 +15,6 @@
         android:theme="@style/Theme.AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.PodsActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"/>
-        <activity
-            android:name=".ui.DetailActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false" />
-        <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true" >

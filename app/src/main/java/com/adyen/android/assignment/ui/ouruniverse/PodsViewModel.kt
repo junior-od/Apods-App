@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.android.assignment.data.remote.api.model.AstronomyPicture
 import com.adyen.android.assignment.data.repository.PlanetaryRepositoryImpl
-import com.adyen.android.assignment.data.usecases.FavouriteDbUseCases
+import com.adyen.android.assignment.domain.usecases.FavouriteDbUseCases
 import com.adyen.android.assignment.utils.Constants
 import com.adyen.android.assignment.utils.DispatcherProviders
 import com.adyen.android.assignment.utils.NetworkResource
@@ -79,11 +79,15 @@ class PodsViewModel @Inject constructor(
         _refreshList.value = PodsEvent.Refresh(true)
     }
 
+    suspend fun getPodsFromApi(): NetworkResource<List<AstronomyPicture>>{
+        return planetaryRepositoryImpl.getPods()
+    }
+
     fun fetchLatest() {
         viewModelScope.launch(dispatchers.io) {
             _fetchLatestAndFavourites.value = PodsEvent.Loading
 
-            when (val response = planetaryRepositoryImpl.getPods()) {
+            when (val response = getPodsFromApi()) {
                 is NetworkResource.Error -> {
                     response.message?.let {
                         _fetchLatestAndFavourites.value = PodsEvent.Error(it)

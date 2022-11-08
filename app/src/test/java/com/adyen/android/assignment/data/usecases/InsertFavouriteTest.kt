@@ -3,6 +3,7 @@ package com.adyen.android.assignment.data.usecases
 import com.adyen.android.assignment.data.remote.api.model.AstronomyPicture
 import com.adyen.android.assignment.data.mappers.FavouriteAstronomyPictureEntMapper
 import com.adyen.android.assignment.data.repository.FakeFavouriteDatabaseRepositoryTest
+import com.adyen.android.assignment.domain.usecases.InsertFavourite
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

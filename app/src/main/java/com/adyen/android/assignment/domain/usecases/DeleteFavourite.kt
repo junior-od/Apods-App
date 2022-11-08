@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.data.usecases
+package com.adyen.android.assignment.domain.usecases
 
 import com.adyen.android.assignment.data.remote.api.model.AstronomyPicture
 import com.adyen.android.assignment.data.repository.FavouriteDatabaseRepository

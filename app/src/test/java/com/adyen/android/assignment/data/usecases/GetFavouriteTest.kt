@@ -2,6 +2,7 @@ package com.adyen.android.assignment.data.usecases
 
 import com.adyen.android.assignment.data.repository.FakeFavouriteDatabaseRepositoryTest
 import com.adyen.android.assignment.data.local.database.model.FavouriteAstronomyPictureEntity
+import com.adyen.android.assignment.domain.usecases.GetFavourite
 import com.adyen.android.assignment.utils.Constants
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
